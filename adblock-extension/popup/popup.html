@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Stream Ad Shield</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <main class="panel" role="main">
+    <header class="header">
+      <img src="../icons/icon-48.png" alt="" width="28" height="28">
+      <h1>Stream Ad Shield</h1>
+    </header>
+
+    <section class="row" aria-labelledby="enabled-label">
+      <label id="enabled-label" for="enabled-toggle">Blocking</label>
+      <input type="checkbox" id="enabled-toggle" class="switch" role="switch" aria-checked="true">
+    </section>
+
+    <section class="row" aria-labelledby="site-label">
+      <div>
+        <label id="site-label" for="site-toggle">Allow this site</label>
+        <div class="site" id="site-host" aria-live="polite">—</div>
+      </div>
+      <input type="checkbox" id="site-toggle" class="switch" role="switch" aria-checked="false">
+    </section>
+
+    <section class="stats" aria-live="polite">
+      <span class="count" id="count">0</span>
+      <span class="count-label">popups and overlays stopped on this tab</span>
+    </section>
+
+    <p class="hint">Network ads are blocked before they load and are not counted here.</p>
+    <p class="error" id="error" role="alert" hidden></p>
+  </main>
+  <script src="popup.js"></script>
+</body>
+</html>

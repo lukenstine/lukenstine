@@ -1,0 +1,80 @@
+{
+  "manifest_version": 3,
+  "name": "Stream Ad Shield",
+  "version": "0.1.0",
+  "description": "Blocks ad networks, pop-unders, fake overlays and notification prompts on streaming sites.",
+  "minimum_chrome_version": "121",
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "stream-ad-shield@lukenstine.github.io",
+      "strict_min_version": "128.0"
+    },
+    "gecko_android": {
+      "strict_min_version": "128.0"
+    }
+  },
+  "icons": {
+    "16": "icons/icon-16.png",
+    "48": "icons/icon-48.png",
+    "128": "icons/icon-128.png"
+  },
+  "permissions": [
+    "declarativeNetRequest",
+    "scripting",
+    "storage",
+    "tabs"
+  ],
+  "host_permissions": [
+    "<all_urls>"
+  ],
+  "background": {
+    "service_worker": "src/background/background.js",
+    "scripts": [
+      "src/background/background.js"
+    ]
+  },
+  "declarative_net_request": {
+    "rule_resources": [
+      {
+        "id": "ad_networks",
+        "enabled": true,
+        "path": "rules/ad-networks.json"
+      }
+    ]
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "<all_urls>"
+      ],
+      "all_frames": true,
+      "match_about_blank": true,
+      "run_at": "document_start",
+      "js": [
+        "src/lib/url-utils.js",
+        "src/content/popup-guard.js"
+      ]
+    },
+    {
+      "matches": [
+        "<all_urls>"
+      ],
+      "all_frames": false,
+      "run_at": "document_idle",
+      "js": [
+        "src/lib/url-utils.js",
+        "src/lib/overlay-heuristics.js",
+        "src/content/overlay-cleaner.js"
+      ]
+    }
+  ],
+  "action": {
+    "default_title": "Stream Ad Shield",
+    "default_popup": "popup/popup.html",
+    "default_icon": {
+      "16": "icons/icon-16.png",
+      "48": "icons/icon-48.png",
+      "128": "icons/icon-128.png"
+    }
+  }
+}
